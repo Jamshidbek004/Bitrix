@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ status_display }}{% endblock %}
+
+{% block content %}
+    <h1>{{ status_display }}</h1>
+
+    <div class="container mt-4">
+        <div class="row">
+            {% for item in filtered_royxat %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.ism }} {{ item.familya }}</h5>
+                            <p class="card-text">
+                                <strong>Status:</strong> {{ item.get_status_display }}<br>
+                                <strong>Viloyat:</strong> {{ item.viloyat }}<br>
+                                <strong>Tuman:</strong> {{ item.tuman }}<br>
+                                <strong>Mahalla:</strong> {{ item.mahhala }}<br>
+                                <strong>Telefon Raqami:</strong> {{ item.raqam }}<br>
+                                <strong>Kilent:</strong> {{ item.kilent }}<br>
+                                <strong>Sharx:</strong> {{ item.sharx|default:"N/A" }}<br>
+                            </p>
+                            {% if user.is_superuser %}
+                                <a href="{% url 'update_royxat' item.id %}" class="btn btn-warning">Edit</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Ro'yxat yo'q</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

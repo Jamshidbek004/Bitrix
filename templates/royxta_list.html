@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Ro'yxatlar{% endblock %}
+
+{% block content %}
+<h1>Ro'yxatlar</h1>
+
+<!-- Filter Form -->
+<form method="get" action="{% url 'royxat_list' %}">
+    <!-- Filter by Ism -->
+    <input type="text" name="ism" placeholder="Ism" value="{{ request.GET.ism }}">
+
+    <!-- Filter by Familya -->
+    <input type="text" name="familya" placeholder="Familya" value="{{ request.GET.familya }}">
+
+    <!-- Filter by Tel Raqami -->
+    <input type="text" name="raqam" placeholder="Telefon Raqami" value="{{ request.GET.raqam }}">
+
+    <!-- Filter by Viloyat -->
+    <input type="text" name="viloyat" placeholder="Viloyat" value="{{ request.GET.viloyat }}">
+
+    <!-- Filter by Operator -->
+    <input type="text" name="operator" placeholder="Operator" value="{{ request.GET.operator }}">
+
+    <!-- Filter by Ro'yxatga olish Vaqti -->
+    <label for="start_date">Ro'yxatga olinish Vaqti:</label>
+    <input type="date" name="start_date" id="start_date" value="{{ request.GET.start_date }}">
+
+
+    <button type="submit">Qidirish</button>
+</form>
+
+<!-- Display Filtered Lists -->
+<div class="container mt-4">
+    <h2>Ro'yxatga Olingan</h2>
+    {% for item in royxatga_olingan %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ item.ism }} {{ item.familya }}</h5>
+            <p class="card-text">
+                <strong>Status:</strong> {{ item.get_status_display }}<br>
+                <strong>Viloyat:</strong> {{ item.viloyat }}<br>
+                <strong>Tuman:</strong> {{ item.tuman }}<br>
+                <strong>Mahalla:</strong> {{ item.mahhala }}<br>
+                <strong>Telefon Raqami:</strong> {{ item.raqam }}<br>
+                <strong>Kilent:</strong> {{ item.kilent }}<br>
+                <strong>Sharx:</strong> {{ item.sharx|default:"N/A" }}<br>
+                <strong>Ro'yxatga Olish Vaqti:</strong> {{ item.royxat_vaqti|date:"Y-m-d H:i" }}<br>
+            </p>
+            {% if user.is_superuser %}
+                <a href="{% url 'update_royxat' item.id %}" class="btn btn-warning">Edit</a>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>Hech narsa topilmadi.</p>
+    {% endfor %}
+</div>
+
+<!-- Add sections for other statuses similarly -->
+
+{% endblock %}

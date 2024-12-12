@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Royxat Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Ro'yxat Dashboard</h1>
+
+    <div>
+        <h2>Ro'yxatga Olingan</h2>
+        <ul>
+            {% for record in royxatga_olingan %}
+            <li>{{ record.ism }} - {{ record.familya }} - {{ record.get_status_display }}</li>
+            {% empty %}
+            <p>Ro'yxat yo'q</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Yetkazib Berishga Tayyor</h2>
+        <ul>
+            {% for record in tayyor %}
+            <li>{{ record.ism }} - {{ record.familya }} - {{ record.get_status_display }}</li>
+            {% empty %}
+            <p>Ro'yxat yo'q</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Yetkazib Berildi</h2>
+        <ul>
+            {% for record in berilgan %}
+            <li>{{ record.ism }} - {{ record.familya }} - {{ record.get_status_display }}</li>
+            {% empty %}
+            <p>Ro'yxat yo'q</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <h2>Bekor Qilingan</h2>
+        <ul>
+            {% for record in bekor_qilingan %}
+            <li>{{ record.ism }} - {{ record.familya }} - {{ record.get_status_display }}</li>
+            {% empty %}
+            <p>Ro'yxat yo'q</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
